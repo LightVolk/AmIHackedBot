@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmIHackedBot", "AmIHackedBot\AmIHackedBot.csproj", "{B5CF8735-E468-4D50-AF0C-5FED898607E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5CF8735-E468-4D50-AF0C-5FED898607E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5CF8735-E468-4D50-AF0C-5FED898607E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5CF8735-E468-4D50-AF0C-5FED898607E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5CF8735-E468-4D50-AF0C-5FED898607E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {70293B74-BED3-4A5B-9CB3-AC2A2C36B286}
+	EndGlobalSection
+EndGlobal
