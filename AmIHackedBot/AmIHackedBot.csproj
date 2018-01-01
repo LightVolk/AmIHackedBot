@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Rx.Contrib" Version="1.0.2" />
     <PackageReference Include="Telegram.Bot" Version="13.4.0" />
   </ItemGroup>
 
