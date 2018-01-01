@@ -74,6 +74,11 @@ namespace AmIHackedBot
                 }
                 BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, msg.ToString(), Telegram.Bot.Types.Enums.ParseMode.Html, false, false);
             }
+
+            if(response.Count==0)
+            {
+                BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, $"E-mail is clean!", Telegram.Bot.Types.Enums.ParseMode.Html, false, false);
+            }
         }
     }
 }
