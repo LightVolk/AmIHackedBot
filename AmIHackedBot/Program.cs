@@ -1,10 +1,10 @@
-﻿using SharpPwned.NET;
-using SharpPwned.NET.Model;
-using System;
+﻿using System;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Microsoft.Extensions.Logging;
+using AmIHackedBot.Sharp;
+
 namespace AmIHackedBot
 {
     class Program
