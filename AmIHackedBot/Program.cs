@@ -101,6 +101,7 @@ namespace AmIHackedBot
                     foreach (var em in emailList)
                     {
                         BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, em.Name, Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);
+                        Thread.Sleep(50);
                     }
                     if(!emailList.Any())
                         BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, "No emails in list yet", Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);

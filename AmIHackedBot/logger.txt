@@ -1412,3 +1412,25 @@ Email 'gamesmannna@mail.ru' Old breaches:'0' New breaches:'0'
 Try to find email 'gamesmanna@mail.ru' from Pwned databases
 Email 'gamesmanna@mail.ru' Old breaches:'0' New breaches:'0'
 Finish to update pwned emails:'3522' ms
+Uploaded a file for the user: 128008543
+Load users from DB:`1` : `611` ms
+Start to update pwned emails
+Try to find email 'simplevolk@gmail.com' from Pwned databases
+Email 'simplevolk@gmail.com' Old breaches:'11' New breaches:'11'
+Try to find email 'simplevolk@mail.ru' from Pwned databases
+Email 'simplevolk@mail.ru' Old breaches:'0' New breaches:'0'
+Try to find email 'gamesmannna@gmail.com' from Pwned databases
+Email 'gamesmannna@gmail.com' Old breaches:'0' New breaches:'0'
+Try to find email 'gamesmannna@mail.ru' from Pwned databases
+Email 'gamesmannna@mail.ru' Old breaches:'0' New breaches:'0'
+Finish to update pwned emails:'3645' ms
+Start to update pwned emails
+Try to find email 'simplevolk@gmail.com' from Pwned databases
+Email 'simplevolk@gmail.com' Old breaches:'11' New breaches:'11'
+Try to find email 'simplevolk@mail.ru' from Pwned databases
+Email 'simplevolk@mail.ru' Old breaches:'0' New breaches:'0'
+Try to find email 'gamesmannna@gmail.com' from Pwned databases
+Email 'gamesmannna@gmail.com' Old breaches:'0' New breaches:'0'
+Try to find email 'gamesmannna@mail.ru' from Pwned databases
+Email 'gamesmannna@mail.ru' Old breaches:'0' New breaches:'0'
+Finish to update pwned emails:'2533' ms
