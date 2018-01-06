@@ -54,6 +54,17 @@ namespace AmIHackedBot
                     msg.AppendLine("add - add email to subscribe list");
                     msg.AppendLine("remove - remove email from subscribe list");
                     msg.AppendLine("showemails - show subscribed emails");
+                    msg.AppendLine("--------------------------------------");
+                    msg.AppendLine(@"Using this bot, you agree with the law on personal data of the Russian Federation.
+The bot can store and process your email and your telegram id.
+This data is only needed to notify you via telegrams and will not be used to send spam.");
+                    msg.AppendLine("--------------------------------------");
+                    msg.AppendLine("\n\n");
+                    msg.AppendLine("--------------------------------------");
+                    msg.AppendLine(@"Используя данный бот, вы соглашаетесь с законом о персональных данных Российской Федерации.
+Бот может хранить и обрабатывать ваш емайл и ваш телеграм ид.
+Эти данные нужны только для оповещения Вас через телеграм и не будут использоваться для рассылки спама.");
+                    msg.AppendLine("--------------------------------------");
                     /*
                 start - start bot
 add - add email to subscribe list

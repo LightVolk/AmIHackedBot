@@ -34,7 +34,8 @@ namespace AmIHackedBot
                 var sw = Stopwatch.StartNew();
                 foreach (var file in allFiles)
                 {
-                    var loadedUser = JsonConvert.DeserializeObject<User>(File.ReadAllText(file));
+                    var fileStr = File.ReadAllText(file);
+                    var loadedUser = JsonConvert.DeserializeObject<User>(fileStr);
                     if (loadedUser != null)
                     {
                         var emailsColl = new HashSet<Email>(new EmailEqualityComparer());
