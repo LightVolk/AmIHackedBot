@@ -80,7 +80,10 @@ namespace AmIHackedBot.Emails
                         var response = _client.GetAccountBreaches(email.Name).Result;
                         if (email.BreachColl.Count != response.Count)//need to send notification
                         {
-                            _notification.SendNotification(telegramId, email.Name, email.BreachColl, response);
+                            if (response.Count != 0)
+                            {
+                                _notification.SendNotification(telegramId, email.Name, email.BreachColl, response);
+                            }
                             var newEmail = new Email(email.Name, response);
                             removeEmails.Add(email);
                             addedEmails.Add(newEmail);
@@ -99,6 +102,7 @@ namespace AmIHackedBot.Emails
                     foreach (var remEm in removeEmails)
                     {
                         _emailManager.TelegramIdToEmailDict[telegramId].Remove(remEm);
+                        emailsColl.Remove(remEm);
                     }
                 }
 
@@ -107,6 +111,7 @@ namespace AmIHackedBot.Emails
                     foreach (var add in addedEmails)
                     {
                         _emailManager.TelegramIdToEmailDict[telegramId].Add(add);
+                        emailsColl.Add(add);
                     }
                 }
 
