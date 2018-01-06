@@ -8,10 +8,12 @@ using System.IO;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Collections;
+using AmIHackedBot.Comparers;
 
 namespace AmIHackedBot
 {
-    
+
 
     /// <summary>
     /// email manager
@@ -21,27 +23,30 @@ namespace AmIHackedBot
         /// <summary>
         /// store collections of subscribe emails by telegramId
         /// </summary>
-        public ConcurrentDictionary<long, List<Email>> TelegramIdToEmailDict;
+        public ConcurrentDictionary<long, HashSet<Email>> TelegramIdToEmailDict;
 
         public EmailManager()
         {
-            TelegramIdToEmailDict = new ConcurrentDictionary<long, List<Email>>();
+            TelegramIdToEmailDict = new ConcurrentDictionary<long, HashSet<Email>>();
             var allFiles = Directory.GetFiles(SharedData.EmailsDirectory);
             if (allFiles != null)
             {
                 var sw = Stopwatch.StartNew();
                 foreach (var file in allFiles)
                 {
-                    var user = JsonConvert.DeserializeObject<User>(File.ReadAllText(file));
-                    if (user != null)
+                    var loadedUser = JsonConvert.DeserializeObject<User>(File.ReadAllText(file));
+                    if (loadedUser != null)
                     {
-                        TelegramIdToEmailDict.TryAdd(user.TelegramId, user.Emails);
-                        StaticUtils.Logger.LogInformation($"Загрузили файл для игрока: {user.TelegramId}");                       
+                        var emailsColl = new HashSet<Email>(new EmailEqualityComparer());
+                        emailsColl.UnionWith(loadedUser.Emails);
+                        var user = new User(loadedUser.TelegramId, emailsColl);
+                        TelegramIdToEmailDict.TryAdd(loadedUser.TelegramId, emailsColl);
+                        StaticUtils.Logger.LogInformation($"Uploaded a file for the user: {loadedUser.TelegramId}");
                     }
                 }
 
                 sw.Stop();
-                StaticUtils.Logger.LogInformation($"Load users from DB:`{TelegramIdToEmailDict.Keys.Count}` : `{sw.ElapsedMilliseconds}` мс");
+                StaticUtils.Logger.LogInformation($"Load users from DB:`{TelegramIdToEmailDict.Keys.Count}` : `{sw.ElapsedMilliseconds}` ms");
             }
         }
 
@@ -52,19 +57,19 @@ namespace AmIHackedBot
         /// <param name="telegramId">Telegram id</param>
         public void AddOrUpdateEmail(int telegramId, Email email)
         {
-            List<Email> emailColl = null;
+            HashSet<Email> emailColl = null;
             if (!TelegramIdToEmailDict.TryGetValue(telegramId, out emailColl))
             {
-                emailColl = new List<Email>();
+                emailColl = new HashSet<Email>(new EmailEqualityComparer());
                 emailColl.Add(email);
                 TelegramIdToEmailDict[telegramId] = emailColl;
                 return;
             }
 
             if (emailColl == null)
-                emailColl = new List<Email>();
-
-            emailColl.Add(email);
+                emailColl = new HashSet<Email>(new EmailEqualityComparer());
+            if (!emailColl.Contains(email))
+                emailColl.Add(email);
             TelegramIdToEmailDict[telegramId] = emailColl;
         }
 
@@ -79,7 +84,7 @@ namespace AmIHackedBot
         /// <param name="email">email</param>
         public void RemoveEmail(int telegramId, Email email)
         {
-            List<Email> emailColl = null;
+            HashSet<Email> emailColl = null;
             if (!TelegramIdToEmailDict.TryGetValue(telegramId, out emailColl))
             {
                 return;
@@ -98,15 +103,16 @@ namespace AmIHackedBot
         /// <returns>collection with emails</returns>
         public IEnumerable<Email> GetEmails(int telegramId)
         {
-            List<Email> emailsColl = null;
+            HashSet<Email> emailsColl = null;
             TelegramIdToEmailDict.TryGetValue(telegramId, out emailsColl);
 
             if (emailsColl == null)
-                emailsColl = new List<Email>();
+                emailsColl = new HashSet<Email>();
             return emailsColl;
         }
 
-        
+
     }
+   
 }
 

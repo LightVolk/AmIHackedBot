@@ -84,6 +84,7 @@ namespace AmIHackedBot.Emails
                             var newEmail = new Email(email.Name, response);
                             removeEmails.Add(email);
                             addedEmails.Add(newEmail);
+                            Thread.Sleep(100);//wait for avoid ddos
                         }
                         StaticUtils.Logger.LogInformation($"Email '{email.Name}' Old breaches:'{email.BreachColl.Count}' New breaches:'{response.Count}'");
                     }

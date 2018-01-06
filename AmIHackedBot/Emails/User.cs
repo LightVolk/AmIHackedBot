@@ -13,9 +13,9 @@ namespace AmIHackedBot.Emails
         /// <summary>
         /// user emails
         /// </summary>
-        public List<Email> Emails { get; private set; }
+        public HashSet<Email> Emails { get; private set; }
 
-        public User(long telegramId,List<Email> emails)
+        public User(long telegramId,HashSet<Email> emails)
         {
             TelegramId = telegramId;
             Emails = emails;
