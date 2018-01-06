@@ -26,7 +26,8 @@ namespace AmIHackedBot
             _emailManager = new EmailManager();
             _updateService = new UpdateService(_emailManager);
             Bot.OnMessage += Bot_OnMessage;
-            Console.WriteLine("Hello World!");
+            _updateService.Start();
+            Console.WriteLine("Start bot!");
             Bot.StartReceiving();
             await Task.Delay(-1);
         }
@@ -124,6 +125,10 @@ namespace AmIHackedBot
             }
         }
 
+        /// <summary>
+        /// send all breaches to client
+        /// </summary>
+        /// <param name="e">arg</param>
         private static void SendBreaches(Telegram.Bot.Args.MessageEventArgs e)
         {
             var client = new HaveIBeenPwnedRestClient();

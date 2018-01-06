@@ -36,11 +36,15 @@ namespace AmIHackedBot
                     try
                     {
                         File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
+                        Console.WriteLine(state.ToString());
+                        if (exception != null)
+                            Console.WriteLine($"{exception.Message} {exception.StackTrace}");
                     }
                     catch (Exception ex)
                     {
                         File.AppendAllText(filePath, string.Format("Ошибка в логгере!:{0} {1}", ex.Message, ex.StackTrace));
                     }
+                   
                 }
             }
         }
@@ -70,7 +74,7 @@ namespace AmIHackedBot
         public static ILoggerFactory AddFile(this ILoggerFactory factory,
                                         string filePath)
         {
-            factory.AddProvider(new FileLoggerProvider(filePath));
+            factory.AddProvider(new FileLoggerProvider(filePath));            
             return factory;
         }
     }

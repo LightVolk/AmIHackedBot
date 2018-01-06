@@ -22,7 +22,7 @@ namespace AmIHackedBot
         public void SendNotification(long telegramId,string email, List<Breach> oldBreaches, List<Breach> newBreaches)
         {
             var firstNotSecond = newBreaches.Except(oldBreaches).ToList();
-            if (!firstNotSecond.Any())
+            if (firstNotSecond.Any())
             {
                 BotClient.Instance.SendTextMessageAsync(telegramId, $"Warning! Your mail  '{email}' has appeared in the bases of hackers!",
                     Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);

@@ -14,3 +14,59 @@ Load users from DB:`0` : `0` мс
 Load users from DB:`0` : `0` мс
 Load users from DB:`0` : `0` мс
 Load users from DB:`0` : `0` мс
+Load users from DB:`0` : `0` мс
+Load users from DB:`0` : `0` мс
+An item with the same key has already been added. Key: 01.07.2012 0:00:00
+Load users from DB:`0` : `0` мс
+Start to update pwned emails
+Start to update pwned emails
+Try to find email 'simplevolk@gmail.com' from Pwned databases
+Email 'simplevolk@gmail.com' Old breaches:'11' New breaches:'11'
+Finish to update pwned emails:'49156' ms
+Start to update pwned emails
+Try to find email 'simplevolk@gmail.com' from Pwned databases
+Email 'simplevolk@gmail.com' Old breaches:'11' New breaches:'11'
+Finish to update pwned emails:'14165' ms
+Start to update pwned emails
+Try to find email 'simplevolk@gmail.com' from Pwned databases
+Email 'simplevolk@gmail.com' Old breaches:'11' New breaches:'11'
+Try to find email 'simplevolk@mail.ru' from Pwned databases
+Email 'simplevolk@mail.ru' Old breaches:'6' New breaches:'6'
+Finish to update pwned emails:'5674' ms
+Загрузили файл для игрока: 128008543
+Load users from DB:`1` : `567` мс
+Загрузили файл для игрока: 128008543
+Load users from DB:`1` : `570` мс
+Start to update pwned emails
+Try to find email 'simplevolk@gmail.com' from Pwned databases
+Email 'simplevolk@gmail.com' Old breaches:'11' New breaches:'11'
+Try to find email 'simplevolk@mail.ru' from Pwned databases
+Email 'simplevolk@mail.ru' Old breaches:'6' New breaches:'0'
+Finish to update pwned emails:'2157' ms
+Start to update pwned emails
+Try to find email 'simplevolk@gmail.com' from Pwned databases
+Email 'simplevolk@gmail.com' Old breaches:'11' New breaches:'11'
+Try to find email 'simplevolk@mail.ru' from Pwned databases
+Email 'simplevolk@mail.ru' Old breaches:'0' New breaches:'0'
+Finish to update pwned emails:'2177' ms
+Start to update pwned emails
+Try to find email 'simplevolk@gmail.com' from Pwned databases
+Email 'simplevolk@gmail.com' Old breaches:'11' New breaches:'11'
+Try to find email 'simplevolk@mail.ru' from Pwned databases
+Email 'simplevolk@mail.ru' Old breaches:'0' New breaches:'0'
+Finish to update pwned emails:'1958' ms
+Start to update pwned emails
+Try to find email 'simplevolk@gmail.com' from Pwned databases
+Email 'simplevolk@gmail.com' Old breaches:'11' New breaches:'11'
+Try to find email 'simplevolk@mail.ru' from Pwned databases
+Email 'simplevolk@mail.ru' Old breaches:'0' New breaches:'6'
+Загрузили файл для игрока: 128008543
+Load users from DB:`1` : `576` мс
+Start to update pwned emails
+Try to find email 'simplevolk@gmail.com' from Pwned databases
+Email 'simplevolk@gmail.com' Old breaches:'11' New breaches:'11'
+Try to find email 'simplevolk@mail.ru' from Pwned databases
+Email 'simplevolk@mail.ru' Old breaches:'0' New breaches:'0'
+Finish to update pwned emails:'2044' ms
+Загрузили файл для игрока: 128008543
+Load users from DB:`1` : `572` мс
