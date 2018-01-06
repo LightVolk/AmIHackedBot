@@ -19,5 +19,7 @@ namespace AmIHackedBot
         /// show subscribed emails
         /// </summary>
         public const String SHOW_EMAIL_LIST = "/showemails";
+
+        public const String HELP = "/help";
     }
 }

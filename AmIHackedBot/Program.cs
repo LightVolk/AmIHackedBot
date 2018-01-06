@@ -43,19 +43,29 @@ namespace AmIHackedBot
             try
             {
                
-                if (e.Message.Text.StartsWith("/start"))
+                if (e.Message.Text.StartsWith("/start")||e.Message.Text.StartsWith(Commands.HELP))
                 {
                     var msg = new StringBuilder();
                     msg.AppendLine("Welcome!");
                     msg.AppendLine("This bot works with www.haveibeenpwned.com");
-                    msg.AppendLine("Type your email to find are your hacked");
-
+                    msg.AppendLine("Enter your email address to see if you are hacked.");
+                    msg.AppendLine("Commands:");
+                    msg.AppendLine("start - start bot");
+                    msg.AppendLine("add - add email to subscribe list");
+                    msg.AppendLine("remove - remove email from subscribe list");
+                    msg.AppendLine("showemails - show subscribed emails");
+                    /*
+                start - start bot
+add - add email to subscribe list
+remove - remove email from subscribe list
+showemails - show subscribed emails
+                 */
                     BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, msg.ToString(), Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false, e.Message.MessageId);
                     return;
                 }
                 else if (e.Message.Text.StartsWith("/email"))
                 {
-                    var msg = "Type your email to find are your hacked";
+                    var msg = "Enter your email address to see if you are hacked.";
                     BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, msg, Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);
                     return;
                 }
@@ -75,6 +85,7 @@ namespace AmIHackedBot
                         var emailObj = new Email(email, response);
                         _emailManager.AddOrUpdateEmail(e.Message.From.Id, emailObj);
                         BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, $"Add email '{email}' to subscribe list", Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);
+                        SendBreaches(e.Message.From.Id, response);
                     }
                     return;
                 }
@@ -98,6 +109,7 @@ namespace AmIHackedBot
                 {
                     var emailList = _emailManager.GetEmails(e.Message.From.Id);
                     BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, $"Your subscribe list:", Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);
+                    Thread.Sleep(50);
                     foreach (var em in emailList)
                     {
                         BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, em.Name, Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);
@@ -107,7 +119,7 @@ namespace AmIHackedBot
                         BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, "No emails in list yet", Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);
                     return;
                 }
-
+                
                 if (string.IsNullOrEmpty(e.Message.Text))
                     return;
 
@@ -135,6 +147,11 @@ namespace AmIHackedBot
             var client = new HaveIBeenPwnedRestClient();
             var response = client.GetAccountBreaches(e.Message.Text).Result;
 
+            SendBreaches(e.Message.From.Id, response);
+        }
+
+        private static void SendBreaches(long telegramId, List<Breach> response)
+        {
             var breachesColl = new Dictionary<DateTime, Breach>(response.Count);
 
             foreach (Breach x in response)
@@ -166,14 +183,14 @@ namespace AmIHackedBot
                     }
                     msg.AppendLine(dataClasses.ToString());
                 }
-                BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, msg.ToString(), Telegram.Bot.Types.Enums.ParseMode.Html, false, false);
+                BotClient.Instance.SendTextMessageAsync(telegramId, msg.ToString(), Telegram.Bot.Types.Enums.ParseMode.Html, false, false);
                 Thread.Sleep(100);
             }
 
 
             if (response.Count == 0)
             {
-                BotClient.Instance.SendTextMessageAsync(e.Message.From.Id, $"E-mail is clean!", Telegram.Bot.Types.Enums.ParseMode.Html, false, false);
+                BotClient.Instance.SendTextMessageAsync(telegramId, $"E-mail is clean!", Telegram.Bot.Types.Enums.ParseMode.Html, false, false);
             }
         }
     }
