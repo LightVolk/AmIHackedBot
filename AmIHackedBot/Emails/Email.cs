@@ -18,7 +18,7 @@ namespace AmIHackedBot.Emails
         /// <summary>
         /// collection of breaches
         /// </summary>
-        public List<Breach> BreachColl { get; private set; }
+        public List<Breach> BreachColl { get;  set; }
 
         public Email(string name,List<Breach> breachColl)
         {

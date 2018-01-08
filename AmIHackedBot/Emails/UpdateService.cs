@@ -40,7 +40,7 @@ namespace AmIHackedBot.Emails
             _client = new HaveIBeenPwnedRestClient();
             _emailManager = emailManager;
             _notification = new Notification();
-            _sub = Observable.Interval(TimeSpan.FromMinutes(1));//one request per day
+            _sub = Observable.Interval(TimeSpan.FromDays(1));//one request per day
 
         }
 
@@ -84,9 +84,10 @@ namespace AmIHackedBot.Emails
                             {
                                 _notification.SendNotification(telegramId, email.Name, email.BreachColl, response);
                             }
-                            var newEmail = new Email(email.Name, response);
-                            removeEmails.Add(email);
-                            addedEmails.Add(newEmail);
+                            email.BreachColl = response;
+                            //var newEmail = new Email(email.Name, response);
+                            //removeEmails.Add(email);
+                            //addedEmails.Add(newEmail);
                             Thread.Sleep(100);//wait for avoid ddos
                         }
                         StaticUtils.Logger.LogInformation($"Email '{email.Name}' Old breaches:'{email.BreachColl.Count}' New breaches:'{response.Count}'");
@@ -97,23 +98,23 @@ namespace AmIHackedBot.Emails
                     }
                 }
 
-                if (removeEmails.Any())
-                {
-                    foreach (var remEm in removeEmails)
-                    {
-                        _emailManager.TelegramIdToEmailDict[telegramId].Remove(remEm);
-                        emailsColl.Remove(remEm);
-                    }
-                }
+                //if (removeEmails.Any())
+                //{
+                //    foreach (var remEm in removeEmails)
+                //    {
+                //        _emailManager.TelegramIdToEmailDict[telegramId].Remove(remEm);
+                //        emailsColl.Remove(remEm);
+                //    }
+                //}
 
-                if (addedEmails.Any())
-                {
-                    foreach (var add in addedEmails)
-                    {
-                        _emailManager.TelegramIdToEmailDict[telegramId].Add(add);
-                        emailsColl.Add(add);
-                    }
-                }
+                //if (addedEmails.Any())
+                //{
+                //    foreach (var add in addedEmails)
+                //    {
+                //        _emailManager.TelegramIdToEmailDict[telegramId].Add(add);
+                //        emailsColl.Add(add);
+                //    }
+                //}
 
                 using (StreamWriter file =
                      new StreamWriter($"{userFile}"))
