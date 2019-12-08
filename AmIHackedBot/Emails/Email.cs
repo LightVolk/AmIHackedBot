@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace AmIHackedBot.Emails
 {
@@ -13,17 +14,23 @@ namespace AmIHackedBot.Emails
         /// <summary>
         /// email 
         /// </summary>
-        public string Name { get; private set; }
+        [JsonPropertyName("name")]
+        public string Name { get;  set; }
 
         /// <summary>
         /// collection of breaches
         /// </summary>
-        public List<Breach> BreachColl { get;  set; }
+        [JsonPropertyName("breachCollection")]
+        public List<Breach> BreachCollection { get;  set; }
 
-        public Email(string name,List<Breach> breachColl)
+        public Email()
+        {
+
+        }
+        public Email(string name,List<Breach> breachCollection)
         {
             Name = name;
-            BreachColl = breachColl;
+            BreachCollection = breachCollection;
         }
     }
 }

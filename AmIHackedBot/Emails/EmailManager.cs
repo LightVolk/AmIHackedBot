@@ -1,6 +1,6 @@
 ﻿using AmIHackedBot.Emails;
 using AmIHackedBot.Sharp;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Collections;
 using AmIHackedBot.Comparers;
 using AmIHackedBot.Db;
+using System.Text.Json;
 
 namespace AmIHackedBot
 {
@@ -38,18 +39,21 @@ namespace AmIHackedBot
             var allFiles = Directory.GetFiles(SharedData.EmailsDirectory);
             if (allFiles != null)
             {
-                var sw = Stopwatch.StartNew();
+                var sw = Stopwatch.StartNew();               
                 foreach (var file in allFiles)
                 {
-                    var fileStr = File.ReadAllText(file);
-                    var loadedUser = JsonConvert.DeserializeObject<User>(fileStr);
-                    if (loadedUser != null)
+                    var json = File.ReadAllText(file);
+                    var loadedEmails = JsonSerializer.Deserialize<List<Email>>(json
+                    );
+                  
+                    if (loadedEmails != null)
                     {
+                        var telegramId = Int64.Parse(Path.GetFileNameWithoutExtension(file));
                         var emailsColl = new HashSet<Email>(new EmailEqualityComparer());
-                        emailsColl.UnionWith(loadedUser.Emails);
-                        var user = new User(loadedUser.TelegramId, emailsColl);
-                        TelegramIdToEmailDict.TryAdd(loadedUser.TelegramId, emailsColl);
-                        StaticUtils.Logger.LogInformation($"Uploaded a file for the user: {loadedUser.TelegramId}");
+                        emailsColl.UnionWith(loadedEmails);
+                        var user = new User(telegramId, emailsColl);
+                        TelegramIdToEmailDict.TryAdd(telegramId, emailsColl);
+                        StaticUtils.Logger.LogInformation($"Uploaded a file for the user: {telegramId}");
                     }
                 }
 

@@ -78,19 +78,19 @@ namespace AmIHackedBot.Emails
                     {
                         StaticUtils.Logger.LogInformation($"Try to find email '{email.Name}' from Pwned databases");
                         var response = _client.GetAccountBreaches(email.Name).Result;
-                        if (email.BreachColl.Count != response.Count)//need to send notification
+                        if (email.BreachCollection.Count != response.Count)//need to send notification
                         {
                             if (response.Count != 0)
                             {
-                                _notification.SendNotification(telegramId, email.Name, email.BreachColl, response);
+                                _notification.SendNotification(telegramId, email.Name, email.BreachCollection, response);
                             }
-                            email.BreachColl = response;
+                            email.BreachCollection = response;
                             //var newEmail = new Email(email.Name, response);
                             //removeEmails.Add(email);
                             //addedEmails.Add(newEmail);
                             Thread.Sleep(100);//wait for avoid ddos
                         }
-                        StaticUtils.Logger.LogInformation($"Email '{email.Name}' Old breaches:'{email.BreachColl.Count}' New breaches:'{response.Count}'");
+                        StaticUtils.Logger.LogInformation($"Email '{email.Name}' Old breaches:'{email.BreachCollection.Count}' New breaches:'{response.Count}'");
                     }
                     catch (Exception ex)
                     {
