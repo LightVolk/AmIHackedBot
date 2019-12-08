@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Collections;
 using AmIHackedBot.Comparers;
+using AmIHackedBot.Db;
 
 namespace AmIHackedBot
 {
@@ -25,8 +26,14 @@ namespace AmIHackedBot
         /// </summary>
         public ConcurrentDictionary<long, HashSet<Email>> TelegramIdToEmailDict;
 
-        public EmailManager()
+        private DbManager _dbManager;
+        private ILogger _logger;
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public EmailManager(ILogger logger)
         {
+            _logger = logger;
             TelegramIdToEmailDict = new ConcurrentDictionary<long, HashSet<Email>>();
             var allFiles = Directory.GetFiles(SharedData.EmailsDirectory);
             if (allFiles != null)
@@ -46,6 +53,8 @@ namespace AmIHackedBot
                     }
                 }
 
+                _dbManager = new DbManager(SharedData.EmailsDirectory,_logger);
+
                 sw.Stop();
                 StaticUtils.Logger.LogInformation($"Load users from DB:`{TelegramIdToEmailDict.Keys.Count}` : `{sw.ElapsedMilliseconds}` ms");
             }
@@ -64,6 +73,7 @@ namespace AmIHackedBot
                 emailColl = new HashSet<Email>(new EmailEqualityComparer());
                 emailColl.Add(email);
                 TelegramIdToEmailDict[telegramId] = emailColl;
+                _dbManager.AddOrUpdate(telegramId, emailColl);
                 return;
             }
 
@@ -72,12 +82,10 @@ namespace AmIHackedBot
             if (!emailColl.Contains(email))
                 emailColl.Add(email);
             TelegramIdToEmailDict[telegramId] = emailColl;
+
+            _dbManager.AddOrUpdate(telegramId, emailColl);
         }
 
-        private Email AddUpdate(int arg1, Email arg2)
-        {
-            return arg2;
-        }
 
         /// <summary>
         /// remove email to subscribe list
@@ -95,6 +103,7 @@ namespace AmIHackedBot
                 return;
             emailColl.Remove(email);
             TelegramIdToEmailDict[telegramId] = emailColl;
+            _dbManager.AddOrUpdate(telegramId, emailColl);
         }
 
         /// <summary>

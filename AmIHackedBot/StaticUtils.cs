@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace AmIHackedBot
@@ -28,6 +29,12 @@ namespace AmIHackedBot
             LoggerFactory = new LoggerFactory();
             LoggerFactory.AddFile(loggerPath);           
             Logger = StaticUtils.LoggerFactory.CreateLogger<Program>();
+        }
+
+        public static string GetExecutingDirectoryName()
+        {
+            var location = new Uri(Assembly.GetEntryAssembly().GetName().CodeBase);
+            return new FileInfo(location.AbsolutePath).Directory.FullName;
         }
     }
 }

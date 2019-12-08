@@ -23,7 +23,7 @@ namespace AmIHackedBot
         public static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
         private async Task MainAsync()
         {
-            _emailManager = new EmailManager();
+            _emailManager = new EmailManager(StaticUtils.Logger);
             _updateService = new UpdateService(_emailManager);
             Bot.OnMessage += Bot_OnMessage;
             _updateService.Start();

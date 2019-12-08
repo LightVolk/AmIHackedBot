@@ -11,7 +11,7 @@ namespace AmIHackedBot
     /// </summary>
     public class RegexUtilities
     {
-        bool invalid = false;
+        bool _invalid = false;
         /// <summary>
         /// Is email valid
         /// </summary>
@@ -19,7 +19,7 @@ namespace AmIHackedBot
         /// <returns></returns>
         public bool IsValidEmail(string strIn)
         {
-            invalid = false;
+            _invalid = false;
             if (String.IsNullOrEmpty(strIn))
                 return false;
 
@@ -34,7 +34,7 @@ namespace AmIHackedBot
                 return false;
             }
 
-            if (invalid)
+            if (_invalid)
                 return false;
 
             // Return true if strIn is in valid e-mail format.
@@ -50,7 +50,7 @@ namespace AmIHackedBot
                 return false;
             }
         }
-
+       
         private string DomainMapper(Match match)
         {
             // IdnMapping class with default property values.
@@ -63,7 +63,7 @@ namespace AmIHackedBot
             }
             catch (ArgumentException)
             {
-                invalid = true;
+                _invalid = true;
             }
             return match.Groups[1].Value + domainName;
         }

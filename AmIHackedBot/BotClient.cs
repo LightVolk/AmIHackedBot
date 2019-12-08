@@ -10,7 +10,7 @@ namespace AmIHackedBot
     public sealed class BotClient : TelegramBotClient
     {
         private static readonly Lazy<BotClient> lazy =
-            new Lazy<BotClient>(() => new BotClient(File.ReadAllText(Path.Combine(GetExecutingDirectoryName(), "Config.txt"))));
+            new Lazy<BotClient>(() => new BotClient(File.ReadAllText(Path.Combine(StaticUtils.GetExecutingDirectoryName(), "Config.txt"))));
 
         public static BotClient Instance { get { return lazy.Value; } }
 
@@ -19,10 +19,6 @@ namespace AmIHackedBot
         {
         }
 
-        private static string GetExecutingDirectoryName()
-        {
-            var location = new Uri(Assembly.GetEntryAssembly().GetName().CodeBase);
-            return new FileInfo(location.AbsolutePath).Directory.FullName;
-        }
+        
     }
 }
